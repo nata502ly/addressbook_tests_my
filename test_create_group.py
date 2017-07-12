@@ -1,18 +1,17 @@
-
-from selenium.webdriver.firefox.webdriver import WebDriver
-
+from selenium import webdriver
 import time, unittest
 
 
 class test_create_group(unittest.TestCase):
     def setUp(self):
-        self.wd = WebDriver()
+        self.wd = webdriver.Chrome()
         self.wd.implicitly_wait(60)
     
     def test_test_create_group(self):
-        success = True
         wd = self.wd
+        # Open main page
         wd.get("http://localhost/addressbook/")
+        # Login
         wd.find_element_by_name("user").click()
         wd.find_element_by_name("user").clear()
         wd.find_element_by_name("user").send_keys("admin")
@@ -20,7 +19,9 @@ class test_create_group(unittest.TestCase):
         wd.find_element_by_name("pass").clear()
         wd.find_element_by_name("pass").send_keys("secret")
         wd.find_element_by_xpath("//form[@id='LoginForm']/input[3]").click()
-        wd.find_element_by_link_text("Группы").click()
+        # Open group page
+        wd.find_element_by_xpath("//*[@id='nav']/ul/li[3]/a").click()
+        # Create a group
         wd.find_element_by_name("new").click()
         wd.find_element_by_name("group_name").click()
         wd.find_element_by_name("group_name").clear()
@@ -35,9 +36,12 @@ class test_create_group(unittest.TestCase):
         wd.find_element_by_name("group_footer").clear()
         wd.find_element_by_name("group_footer").send_keys("Hi")
         wd.find_element_by_name("submit").click()
+        # TODO: Verify message about success
+        # Return group page
         wd.find_element_by_link_text("group page").click()
-        wd.find_element_by_link_text("Выйти").click()
-        self.assertTrue(success)
+        # Log Out
+        wd.find_element_by_xpath("//*[@id='top']/form/a").click()
+      # TODO: Verify group creation
     
     def tearDown(self):
         self.wd.quit()
