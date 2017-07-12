@@ -3,6 +3,12 @@ class AddressBook:
     def __init__(self):
         self.wd = webdriver.Chrome()
         self.wd.implicitly_wait(60)
+    def message(self):
+        return self.wd.find_element_by_xpath("//*[@id='content']/div").text
+
+
+
+
     def logout(self):
         # Log Out
         wd = self.wd
