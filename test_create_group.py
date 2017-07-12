@@ -9,19 +9,28 @@ class test_create_group(unittest.TestCase):
     
     def test_test_create_group(self):
         wd = self.wd
-        # Open main page
-        wd.get("http://localhost/addressbook/")
-        # Login
-        wd.find_element_by_name("user").click()
-        wd.find_element_by_name("user").clear()
-        wd.find_element_by_name("user").send_keys("admin")
-        wd.find_element_by_name("pass").click()
-        wd.find_element_by_name("pass").clear()
-        wd.find_element_by_name("pass").send_keys("secret")
-        wd.find_element_by_xpath("//form[@id='LoginForm']/input[3]").click()
-        # Open group page
-        wd.find_element_by_xpath("//*[@id='nav']/ul/li[3]/a").click()
+        self.open_main_page()
+        self.login()
+        self.open_group_page()
+        self.create_group()
+        # TODO: Verify message about success
+        self.return_group_page()
+        self.logout()
+      # TODO: Verify group creation
+
+    def logout(self):
+        # Log Out
+        wd = self.wd
+        wd.find_element_by_xpath("//*[@id='top']/form/a").click()
+
+    def return_group_page(self):
+        # Return group page
+        wd = self.wd
+        wd.find_element_by_link_text("group page").click()
+
+    def create_group(self):
         # Create a group
+        wd = self.wd
         wd.find_element_by_name("new").click()
         wd.find_element_by_name("group_name").click()
         wd.find_element_by_name("group_name").clear()
@@ -36,13 +45,28 @@ class test_create_group(unittest.TestCase):
         wd.find_element_by_name("group_footer").clear()
         wd.find_element_by_name("group_footer").send_keys("Hi")
         wd.find_element_by_name("submit").click()
-        # TODO: Verify message about success
-        # Return group page
-        wd.find_element_by_link_text("group page").click()
-        # Log Out
-        wd.find_element_by_xpath("//*[@id='top']/form/a").click()
-      # TODO: Verify group creation
-    
+
+    def open_group_page(self):
+        # Open group page
+        wd =self.wd
+        wd.find_element_by_xpath("//*[@id='nav']/ul/li[3]/a").click()
+
+    def login(self):
+        # Fill form login
+        wd = self.wd
+        wd.find_element_by_name("user").click()
+        wd.find_element_by_name("user").clear()
+        wd.find_element_by_name("user").send_keys("admin")
+        wd.find_element_by_name("pass").click()
+        wd.find_element_by_name("pass").clear()
+        wd.find_element_by_name("pass").send_keys("secret")
+        # Submit login
+        wd.find_element_by_xpath("//form[@id='LoginForm']/input[3]").click()
+
+    def open_main_page(self):
+        # Open main page
+        self.wd.get("http://localhost/addressbook/")
+
     def tearDown(self):
         self.wd.quit()
 
