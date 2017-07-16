@@ -18,9 +18,13 @@ def init_login(app):
 def init_groups(app):
     if not app.is_group_present():
         app.create_group(Group(name="Test"))
-groups = [
-Group("My group", "ddbdb", "Hi")
-]
+my_file = open("some.txt")
+groups = []
+groups = my_file.read()
+my_file.close()
+# groups = [
+# Group("My group", "ddbdb", "Hi")
+# ]
 @pytest.fixture()
 def init_modify(app):
     app.modify_group(surname="Yuriivna")
