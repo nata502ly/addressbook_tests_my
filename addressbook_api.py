@@ -76,8 +76,8 @@ class AddressBook:
         checkbox_edit_button[index].click()
         edit_button = wd.find_element_by_xpath("//*[@id='content']/form/input[9]")
         edit_button.click()
-        groupname_field = wd.find_element_by_xpath("//*[@id='content']/form/textarea[1]").clear()
-        groupname_field.send_keys("NewNew")
+        groupname_field = wd.find_element_by_xpath("//*[@id='content']/form/textarea[1]")
+        groupname_field.clear()
         edit = wd.find_element_by_xpath("//*[@id='content']/form/input[3]")
         edit.click()
 
