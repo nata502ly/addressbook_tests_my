@@ -91,6 +91,13 @@ class AddressBook:
             checkboxes[index].click()
         wd.find_element_by_name("delete").click()
 
+    def delete_allgroups(self):
+        wd = self.wd
+        checkboxes = wd.find_elements_by_name("selected[]")
+        for c in checkboxes:
+            c.click()
+        wd.find_element_by_name("delete").click()
+
     def open_group_page(self):
         # Open group page
         wd =self.wd
