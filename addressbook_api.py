@@ -2,15 +2,16 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 
 class AddressBook:
-    def __init__(self):
-        self.wd = webdriver.Chrome()
+    def __init__(self, driver, base_url):
+        self.wd = driver
         self.wd.implicitly_wait(10)
+        self.base_url = base_url
     def message(self):
         return self.wd.find_element_by_xpath("//*[@id='content']/div").text
 
     def open_main_page(self):
         # Open main page
-        self.wd.get("http://localhost/addressbook/")
+        self.wd.get(self.base_url)
 
     def is_element_present(self, by, value):
         return len(self.wd.find_elements(by, value)) != 0
