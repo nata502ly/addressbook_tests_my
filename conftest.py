@@ -1,6 +1,7 @@
 import pytest
 from addressbook_api import AddressBook
 from models.group import Group
+from data.groups_data import groups_list
 @pytest.fixture(scope="session")
 def app():
     app = AddressBook()
@@ -18,10 +19,11 @@ def init_login(app):
 def init_groups(app):
     if not app.is_group_present():
         app.create_group(Group(name="Test"))
-my_file = open("some.txt")
-groups = []
-groups = my_file.read()
-my_file.close()
+# my_file = open("some.json")
+# groups = []
+# for group in groups:
+#     group.read()
+# my_file.close()
 # groups = [
 # Group("My group", "ddbdb", "Hi")
 # ]
@@ -29,6 +31,6 @@ my_file.close()
 def init_modify(app):
     app.modify_group(surname="Yuriivna")
 
-@pytest.fixture(params=groups, ids=[str(g) for g in groups])
+@pytest.fixture(params=groups_list, ids=[str(g) for g in groups_list])
 def group(request):
     return request.param
