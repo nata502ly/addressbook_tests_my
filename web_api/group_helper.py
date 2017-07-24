@@ -1,4 +1,5 @@
 from selenium.webdriver.common.by import By
+import time
 
 class GroupHelper:
     def __init__(self, app):
@@ -42,8 +43,21 @@ class GroupHelper:
         wd.find_element_by_name("delete").click()
 
     def delete_all(self):
-        wd = self.wd
+        wd = self.app.wd
         checkboxes = wd.find_elements_by_name("selected[]")
         for c in checkboxes:
             c.click()
         wd.find_element_by_name("delete").click()
+
+
+    def modify(self, index, group):
+        wd = self.app.wd
+        checkbox_edit_button = wd.find_element_by_name("selected[]")
+        checkbox_edit_button[index].click()
+        time.sleep(5)
+        edit_button = wd.find_element_by_xpath("//*[@id='content']/form/input[14]")
+        edit_button.click()
+        groupname_field = wd.find_element_by_xpath("//*[@id='content']/form/textarea[1]")
+        groupname_field.clear()
+        edit = wd.find_element_by_xpath("//*[@id='content']/form/input[3]")
+        edit.click()

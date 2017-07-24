@@ -32,6 +32,7 @@ def init_login(app, config):
         app.session.login(config["web"]["username"], password =config["web"]["password"])
     yield
     app.session.logout()
+
 @pytest.fixture()
 def init_groups(app):
     if not app.group.is_present():
@@ -47,10 +48,12 @@ def init_groups(app):
 @pytest.fixture()
 def init_modify(app):
     app.modify_group(surname="Yuriivna")
-#TODO Delete [0:1]
+
+
 @pytest.fixture(params=groups_list, ids=[str(g) for g in groups_list])
 def group(request):
     return request.param
+
 @pytest.fixture(scope="session")
 def db(config):
     dbfixture = AddressbookDB(**config["db"])
