@@ -2,9 +2,8 @@ from pytest_bdd import given, when, then
 from models.group import Group
 
 @given("a group list")
-def old_group_list():
-    def old_group_list(db):
-        return db.get_group_list()
+def old_group_list(db):
+    return db.get_group_list()
 
 @given("a new group with <name>, <header>, <footer>")
 def new_group(name, header, footer):
